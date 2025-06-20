@@ -1,6 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
-from newspaper import Article, Config
+# Fix for newspaper3k import
+try:
+    from newspaper import Article, Config
+except ImportError:
+    # If direct import fails, try importing from newspaper3k
+    from newspaper3k import Article, Config
 import nltk
 from urllib.parse import urlparse, urljoin
 import re
