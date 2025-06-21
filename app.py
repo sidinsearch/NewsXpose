@@ -398,20 +398,44 @@ def load_custom_css():
 def load_models_and_data():
     """Load all models and data with caching for better performance."""
     try:
-        # Check if model file exists
+        # Check for model files in multiple locations
         import os
-        ensemble_path = 'ensemble_fake_news_detector.pkl'
-        if not os.path.exists(ensemble_path):
-            st.error(f"Model file not found: {ensemble_path}")
+        
+        # Define possible model paths
+        model_paths = [
+            '/app/models/ensemble_fake_news_detector.pkl',  # Docker container path
+            'models/ensemble_fake_news_detector.pkl',       # Subdirectory path
+            'ensemble_fake_news_detector.pkl'               # Root directory path
+        ]
+        
+        # Find the first existing model path
+        ensemble_path = None
+        for path in model_paths:
+            if os.path.exists(path):
+                ensemble_path = path
+                st.success(f"Found model at: {path}")
+                break
+        
+        if not ensemble_path:
+            st.error("Model file not found in any of the expected locations")
             st.info(f"Current working directory: {os.getcwd()}")
             st.info(f"Files in directory: {os.listdir('.')}")
+            
+            # Check if models directory exists
+            if os.path.exists('/app/models'):
+                st.info(f"Files in /app/models: {os.listdir('/app/models')}")
+            elif os.path.exists('models'):
+                st.info(f"Files in models: {os.listdir('models')}")
+                
             return None, None, None, set()
         
         # Load ensemble model with detailed error handling
         try:
+            st.info(f"Loading ensemble model from: {ensemble_path}")
             ensemble_model_data = safe_load_model(ensemble_path)
             if ensemble_model_data:
                 ensemble_model, vector = ensemble_model_data
+                st.success("Successfully loaded ensemble model")
             else:
                 st.error(f"Failed to load ensemble model from {ensemble_path}")
                 ensemble_model, vector = None, None
@@ -419,9 +443,31 @@ def load_models_and_data():
             st.error(f"Error loading ensemble model: {str(model_error)}")
             ensemble_model, vector = None, None
         
+        # Define possible image model paths
+        image_model_paths = [
+            '/app/models/image-model.pkl',  # Docker container path
+            'models/image-model.pkl',       # Subdirectory path
+            'image-model.pkl'               # Root directory path
+        ]
+        
+        # Find the first existing image model path
+        image_model_path = None
+        for path in image_model_paths:
+            if os.path.exists(path):
+                image_model_path = path
+                st.success(f"Found image model at: {path}")
+                break
+        
         # Load image model
         try:
-            image_model = safe_load_model('image-model.pkl')
+            if image_model_path:
+                st.info(f"Loading image model from: {image_model_path}")
+                image_model = safe_load_model(image_model_path)
+                if image_model:
+                    st.success("Successfully loaded image model")
+            else:
+                st.error("Image model file not found in any of the expected locations")
+                image_model = None
         except Exception as img_error:
             st.error(f"Error loading image model: {str(img_error)}")
             image_model = None

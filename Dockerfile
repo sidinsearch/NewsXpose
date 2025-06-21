@@ -40,12 +40,20 @@ ENV PATH="/opt/venv/bin:$PATH"
 # Copy NLTK data
 COPY --from=builder /root/nltk_data /root/nltk_data
 
-# Copy the application
+# Create a models directory
+RUN mkdir -p /app/models
+
+# Copy model files separately to ensure they're included
+COPY ensemble_fake_news_detector.pkl /app/models/
+COPY image-model.pkl /app/models/
+
+# Copy the rest of the application
 COPY . .
 
-# Verify model files exist
-RUN ls -la *.pkl || echo "Model files not found"
-RUN python check_model.py || echo "Model check failed but continuing"
+# Verify model files exist and have correct permissions
+RUN ls -la /app/models/*.pkl || echo "Model files not found"
+RUN chmod 644 /app/models/*.pkl
+RUN python check_model.py /app/models/ensemble_fake_news_detector.pkl || echo "Model check failed but continuing"
 
 # Expose the port Streamlit will run on
 EXPOSE 8501

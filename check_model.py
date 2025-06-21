@@ -64,13 +64,43 @@ def check_model_file(model_path):
     print(f"Failed to load model with both pickle and joblib")
     return False
 
+def find_model_file(base_name):
+    """Find a model file in multiple possible locations."""
+    # Define possible model paths
+    possible_paths = [
+        f'/app/models/{base_name}',  # Docker container path
+        f'models/{base_name}',       # Subdirectory path
+        base_name                    # Root directory path
+    ]
+    
+    # Find the first existing model path
+    for path in possible_paths:
+        if os.path.exists(path):
+            print(f"Found model at: {path}")
+            return path
+    
+    print(f"Model file not found: {base_name}")
+    return None
+
 if __name__ == "__main__":
-    # Get model path from command line or use default
-    model_path = sys.argv[1] if len(sys.argv) > 1 else 'ensemble_fake_news_detector.pkl'
+    # Get model base name from command line or use default
+    model_base_name = sys.argv[1] if len(sys.argv) > 1 else 'ensemble_fake_news_detector.pkl'
     
     # Check current directory
     print(f"Current working directory: {os.getcwd()}")
     print(f"Files in directory: {os.listdir('.')}")
     
-    # Check model file
-    check_model_file(model_path)
+    # Check if models directory exists
+    if os.path.exists('/app/models'):
+        print(f"Files in /app/models: {os.listdir('/app/models')}")
+    elif os.path.exists('models'):
+        print(f"Files in models: {os.listdir('models')}")
+    
+    # Find model file
+    model_path = find_model_file(model_base_name)
+    
+    if model_path:
+        # Check model file
+        check_model_file(model_path)
+    else:
+        print(f"Model file not found in any of the expected locations")

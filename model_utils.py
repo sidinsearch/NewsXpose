@@ -4,6 +4,32 @@ import warnings
 import numpy as np
 from sklearn.base import BaseEstimator
 
+def find_model_file(base_name):
+    """
+    Find a model file in multiple possible locations.
+    
+    Args:
+        base_name (str): Base name of the model file (e.g., 'ensemble_fake_news_detector.pkl')
+        
+    Returns:
+        str: Full path to the model file if found, None otherwise
+    """
+    # Define possible model paths
+    possible_paths = [
+        f'/app/models/{base_name}',  # Docker container path
+        f'models/{base_name}',       # Subdirectory path
+        base_name                    # Root directory path
+    ]
+    
+    # Find the first existing model path
+    for path in possible_paths:
+        if os.path.exists(path):
+            print(f"Found model at: {path}")
+            return path
+    
+    print(f"Model file not found: {base_name}")
+    return None
+
 def safe_load_model(model_path):
     """
     Safely load a scikit-learn model with compatibility handling.
@@ -17,6 +43,10 @@ def safe_load_model(model_path):
     Returns:
         The loaded model or None if loading fails
     """
+    # If model_path is None, try to find the model file
+    if model_path is None:
+        return None
+    
     if not os.path.exists(model_path):
         print(f"Model file not found: {model_path}")
         return None
