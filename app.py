@@ -22,6 +22,7 @@ import os
 from articlefinder import find_related_articles
 from llm import analyze_article as get_llm_analysis
 from scraper import transcribe_youtube_video, get_youtube_thumbnail
+from model_utils import safe_load_model, is_model_compatible
 
 # Page configuration
 st.set_page_config(
@@ -620,8 +621,7 @@ def prediction(input_text):
 
 def calculate_combined_prediction(text_probs, image_result, domain_trust_score, llm_verdict):
     """Calculate combined prediction from all components."""
-
-from model_utils import safe_load_model, is_model_compatible
+    
     TEXT_WEIGHT = 0.50
     IMAGE_WEIGHT = 0.15
     DOMAIN_WEIGHT = 0.15

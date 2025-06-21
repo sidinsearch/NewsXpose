@@ -43,24 +43,46 @@ def update_file(file_path):
         print(f"File {file_path} already updated")
         return False
     
-    # Add import for model_utils
+    # Add import for model_utils at the top with other imports
     import_pattern = r'(import\s+[^\n]+\n|from\s+[^\n]+\n)'
     imports = re.findall(import_pattern, content)
     
     if imports:
-        last_import = imports[-1]
-        last_import_pos = content.rfind(last_import) + len(last_import)
+        # Find the last import statement at the top of the file
+        # This avoids adding imports in the middle of functions
+        import_block_end = 0
+        for match in re.finditer(import_pattern, content):
+            if match.start() > import_block_end + 10:  # If there's a big gap, we're out of the import block
+                break
+            import_block_end = match.end()
+        
         new_content = (
-            content[:last_import_pos] + 
-            "\nfrom model_utils import safe_load_model, is_model_compatible\n" + 
-            content[last_import_pos:]
+            content[:import_block_end] + 
+            "from model_utils import safe_load_model, is_model_compatible\n" + 
+            content[import_block_end:]
         )
     else:
         new_content = "from model_utils import safe_load_model, is_model_compatible\n\n" + content
     
+    # Remove any duplicate or misplaced imports
+    new_content = re.sub(r'from model_utils import safe_load_model, is_model_compatible\s+', '', new_content)
+    
     # Replace pickle.load calls with safe_load_model
     pickle_pattern = r'pickle\.load\(\s*open\(\s*([^,]+),\s*[\'"]rb[\'"]\s*\)\s*\)'
     new_content = re.sub(pickle_pattern, r'safe_load_model(\1)', new_content)
+    
+    # Replace with open pattern
+    with_open_pattern = r'with\s+open\(\s*([^,]+),\s*[\'"]rb[\'"]\s*\)\s*as\s+f:\s*\n\s+([a-zA-Z0-9_,\s]+)\s*=\s*pickle\.load\(f\)'
+    
+    def replace_with_open(match):
+        file_path = match.group(1)
+        var_names = match.group(2).strip()
+        if ',' in var_names:
+            return f"{var_names} = safe_load_model({file_path})"
+        else:
+            return f"{var_names} = safe_load_model({file_path})"
+    
+    new_content = re.sub(with_open_pattern, replace_with_open, new_content)
     
     # Replace joblib.load calls
     joblib_pattern = r'joblib\.load\(\s*([^)]+)\s*\)'
