@@ -1,4 +1,5 @@
 import streamlit as st
+import warnings
 import numpy as np
 import re
 import pickle
@@ -23,6 +24,9 @@ from articlefinder import find_related_articles
 from llm import analyze_article as get_llm_analysis
 from scraper import transcribe_youtube_video, get_youtube_thumbnail
 from model_utils import safe_load_model, is_model_compatible
+
+# Suppress warnings about incompatible dtype in node arrays
+warnings.filterwarnings("ignore", message=".*node array from the pickle has an incompatible dtype.*")
 
 # Page configuration
 st.set_page_config(
