@@ -398,32 +398,52 @@ def load_custom_css():
 def load_models_and_data():
     """Load all models and data with caching for better performance."""
     try:
-        # Load ensemble model
-        ensemble_model_data = safe_load_model('ensemble_fake_news_detector.pkl')
-        if ensemble_model_data:
-            ensemble_model, vector = ensemble_model_data
-        else:
-            st.error("Failed to load ensemble model")
+        # Check if model file exists
+        import os
+        ensemble_path = 'ensemble_fake_news_detector.pkl'
+        if not os.path.exists(ensemble_path):
+            st.error(f"Model file not found: {ensemble_path}")
+            st.info(f"Current working directory: {os.getcwd()}")
+            st.info(f"Files in directory: {os.listdir('.')}")
+            return None, None, None, set()
+        
+        # Load ensemble model with detailed error handling
+        try:
+            ensemble_model_data = safe_load_model(ensemble_path)
+            if ensemble_model_data:
+                ensemble_model, vector = ensemble_model_data
+            else:
+                st.error(f"Failed to load ensemble model from {ensemble_path}")
+                ensemble_model, vector = None, None
+        except Exception as model_error:
+            st.error(f"Error loading ensemble model: {str(model_error)}")
             ensemble_model, vector = None, None
         
         # Load image model
-        image_model = safe_load_model('image-model.pkl')
+        try:
+            image_model = safe_load_model('image-model.pkl')
+        except Exception as img_error:
+            st.error(f"Error loading image model: {str(img_error)}")
+            image_model = None
         
         # Load trustworthy domains
         trustworthy_domains = set()
         try:
             with open('domains.txt', 'r') as file:
                 trustworthy_domains = {line.strip().lower() for line in file if line.strip()}
-        except:
-            pass
+        except Exception as domain_error:
+            st.warning(f"Error loading domains: {str(domain_error)}")
         
         # Download NLTK data
-        nltk.download('stopwords', quiet=True)
-        nltk.download('punkt', quiet=True)
+        try:
+            nltk.download('stopwords', quiet=True)
+            nltk.download('punkt', quiet=True)
+        except Exception as nltk_error:
+            st.warning(f"Error downloading NLTK data: {str(nltk_error)}")
         
         return ensemble_model, vector, image_model, trustworthy_domains
     except Exception as e:
-        st.error(f"Error loading models: {str(e)}")
+        st.error(f"Error in load_models_and_data: {str(e)}")
         return None, None, None, set()
 
 # Initialize models

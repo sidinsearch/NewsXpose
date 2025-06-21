@@ -21,6 +21,16 @@ def safe_load_model(model_path):
         print(f"Model file not found: {model_path}")
         return None
     
+    # Get file size and check if it's valid
+    try:
+        file_size = os.path.getsize(model_path)
+        print(f"Model file size: {file_size} bytes")
+        if file_size == 0:
+            print(f"Error: Model file {model_path} is empty")
+            return None
+    except Exception as e:
+        print(f"Error checking model file: {str(e)}")
+    
     # Suppress specific warnings about node array dtype
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message=".*node array from the pickle has an incompatible dtype.*")
@@ -28,10 +38,21 @@ def safe_load_model(model_path):
         try:
             with open(model_path, 'rb') as f:
                 model = pickle.load(f)
+            print(f"Successfully loaded model from {model_path}")
             return model
         except Exception as e:
             print(f"Error loading model from {model_path}: {str(e)}")
-            return None
+            
+            # Try with a different approach if the first one fails
+            try:
+                import joblib
+                print(f"Attempting to load with joblib...")
+                model = joblib.load(model_path)
+                print(f"Successfully loaded model with joblib from {model_path}")
+                return model
+            except Exception as e2:
+                print(f"Error loading model with joblib: {str(e2)}")
+                return None
 
 def is_model_compatible(model):
     """
