@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Check for model compatibility issues and fix them
+echo -e "\e[32mChecking for model compatibility issues...\e[0m"
+python update_model_loading.py
+
+# Test model loading
+echo -e "\e[32mTesting model loading...\e[0m"
+python test_model_loading.py
+
 # Build the Docker image
 echo -e "\e[32mBuilding Docker image...\e[0m"
 docker build -t combined-model-app:latest .

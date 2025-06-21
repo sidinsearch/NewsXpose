@@ -4,6 +4,9 @@ numpy==1.24.3
 pandas==2.0.3
 plotly==5.15.0
 nltk==3.8.1
+# Use the exact scikit-learn version that was used to train the model
+# If you know the exact version used for training, uncomment and use that version instead
+# scikit-learn==1.0.2
 scikit-learn==1.2.2
 
 # Web scraping and processing

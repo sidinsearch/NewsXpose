@@ -1,5 +1,13 @@
 # PowerShell script for building and deploying the Docker image
 
+# Check for model compatibility issues and fix them
+Write-Host "Checking for model compatibility issues..." -ForegroundColor Green
+python update_model_loading.py
+
+# Test model loading
+Write-Host "Testing model loading..." -ForegroundColor Green
+python test_model_loading.py
+
 # Build the Docker image
 Write-Host "Building Docker image..." -ForegroundColor Green
 docker build -t combined-model-app:latest .

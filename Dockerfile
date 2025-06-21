@@ -46,5 +46,8 @@ COPY . .
 # Expose the port Streamlit will run on
 EXPOSE 8501
 
+# Set environment variable to suppress specific warnings
+ENV PYTHONWARNINGS="ignore::UserWarning:sklearn.base"
+
 # Command to run the application
 CMD streamlit run app.py --server.port ${PORT:-8501} --server.address 0.0.0.0

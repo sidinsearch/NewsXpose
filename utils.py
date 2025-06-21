@@ -102,6 +102,8 @@ def get_domain_info(url):
 
 def load_image_model(pickle_file):
     """Load the saved model from a .pkl file for image prediction."""
+
+from model_utils import safe_load_model, is_model_compatible
     with open(pickle_file, 'rb') as file:
         model = pickle.load(file)
     return model

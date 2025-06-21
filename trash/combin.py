@@ -1,5 +1,7 @@
 import pickle
 
+from model_utils import safe_load_model, is_model_compatible
+
 # Load the existing models
 with open('ensemble_fake_news_detector.pkl', 'rb') as f:
     ensemble_model, vector = pickle.load(f)

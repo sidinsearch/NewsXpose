@@ -394,12 +394,15 @@ def load_models_and_data():
     """Load all models and data with caching for better performance."""
     try:
         # Load ensemble model
-        with open('ensemble_fake_news_detector.pkl', 'rb') as f:
-            ensemble_model, vector = pickle.load(f)
+        ensemble_model_data = safe_load_model('ensemble_fake_news_detector.pkl')
+        if ensemble_model_data:
+            ensemble_model, vector = ensemble_model_data
+        else:
+            st.error("Failed to load ensemble model")
+            ensemble_model, vector = None, None
         
         # Load image model
-        with open('image-model.pkl', 'rb') as f:
-            image_model = pickle.load(f)
+        image_model = safe_load_model('image-model.pkl')
         
         # Load trustworthy domains
         trustworthy_domains = set()
@@ -617,6 +620,8 @@ def prediction(input_text):
 
 def calculate_combined_prediction(text_probs, image_result, domain_trust_score, llm_verdict):
     """Calculate combined prediction from all components."""
+
+from model_utils import safe_load_model, is_model_compatible
     TEXT_WEIGHT = 0.50
     IMAGE_WEIGHT = 0.15
     DOMAIN_WEIGHT = 0.15

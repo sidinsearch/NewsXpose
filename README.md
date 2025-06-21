@@ -80,3 +80,35 @@ Using Docker for this project provides several advantages:
 ### Requirements
 
 All Python dependencies are specified in requirements.txt with pinned versions for reproducibility.
+
+## Troubleshooting Common Issues
+
+### Model Compatibility Warnings
+
+If you see warnings about incompatible dtype in node arrays:
+1. Run the `update_model_loading.py` script to update model loading code:
+   ```bash
+   python update_model_loading.py
+   ```
+2. This script will replace standard model loading with a compatible version
+3. The warning is usually harmless if the model still works correctly
+4. If you know the exact scikit-learn version used to train the model, update it in requirements.txt
+
+### Build Timeouts
+
+If your build times out:
+1. Make sure your Dockerfile is optimized (the multi-stage build we created helps with this)
+2. Consider building the image locally and pushing to a registry like Docker Hub
+
+### Application Crashes
+
+If your application crashes after deployment:
+1. Check the logs in the Render dashboard
+2. Make sure all environment variables are set correctly
+3. Verify that your application works in the Docker container locally
+
+### Memory Issues
+
+If you see out-of-memory errors:
+1. Upgrade to a larger instance type
+2. Optimize your application to use less memory

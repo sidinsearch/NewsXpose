@@ -19,6 +19,8 @@ def scrape_google_news(query):
 
 def scrape_rss_feed(url):
     """Scrape news articles from RSS feed."""
+
+from model_utils import safe_load_model, is_model_compatible
     try:
         headers = {'User-Agent': 'Mozilla/5.0'}
         response = requests.get(url, headers=headers)
