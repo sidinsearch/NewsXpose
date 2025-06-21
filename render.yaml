@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: combined-model-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 8501

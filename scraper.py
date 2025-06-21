@@ -1,10 +1,47 @@
 import requests
 from bs4 import BeautifulSoup
-from newspaper import Article, Config
 import nltk
 from urllib.parse import urlparse, urljoin
 import re
 import yt_dlp
+
+# Define a fallback Config class if newspaper is not available
+class Config:
+    def __init__(self):
+        self.browser_user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+
+# Try to import newspaper, but provide fallbacks if it's not available
+try:
+    from newspaper import Article, Config
+    NEWSPAPER_AVAILABLE = True
+except ImportError:
+    try:
+        from newspaper3k import Article, Config
+        NEWSPAPER_AVAILABLE = True
+    except ImportError:
+        # Define a simple Article class as fallback
+        class Article:
+            def __init__(self, url, config=None):
+                self.url = url
+                self.config = config
+                self.title = None
+                self.text = None
+                self.summary = None
+                self.keywords = []
+                self.publish_date = None
+                self.top_image = None
+            
+            def download(self):
+                pass
+                
+            def parse(self):
+                pass
+                
+            def nlp(self):
+                pass
+        
+        NEWSPAPER_AVAILABLE = False
+        print("Warning: Neither newspaper nor newspaper3k is available. Using fallback scraping methods.")
 
 # Download necessary NLTK data
 nltk.download('punkt', quiet=True)
@@ -75,6 +112,11 @@ def clean_text(text):
     return '\n\n'.join(cleaned_paragraphs)
 
 def scrape_article_newspaper3k(url):
+    # If newspaper is not available, skip this method
+    if not NEWSPAPER_AVAILABLE:
+        print("Newspaper module not available, skipping newspaper3k extraction")
+        return None
+        
     try:
         article = Article(url, config=config)
         article.download()
@@ -149,12 +191,15 @@ def scrape_article(url):
             print("The provided URL does not appear to be a news article.")
             return None
         
-        # Try newspaper3k first
-        article_data = scrape_article_newspaper3k(url)
+        # If newspaper is available, try it first, otherwise go straight to BeautifulSoup
+        if NEWSPAPER_AVAILABLE:
+            article_data = scrape_article_newspaper3k(url)
+            if article_data:
+                article_data['publisher'] = extract_publisher_from_url(url)
+                return article_data
         
-        # If newspaper3k fails, fall back to BeautifulSoup
-        if not article_data:
-            article_data = scrape_article_bs4(url)
+        # Use BeautifulSoup as primary or fallback method
+        article_data = scrape_article_bs4(url)
         
         if article_data:
             article_data['publisher'] = extract_publisher_from_url(url)
