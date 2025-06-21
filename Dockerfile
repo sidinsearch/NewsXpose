@@ -43,6 +43,10 @@ COPY --from=builder /root/nltk_data /root/nltk_data
 # Copy the application
 COPY . .
 
+# Verify model files exist
+RUN ls -la *.pkl || echo "Model files not found"
+RUN python check_model.py || echo "Model check failed but continuing"
+
 # Expose the port Streamlit will run on
 EXPOSE 8501
 
