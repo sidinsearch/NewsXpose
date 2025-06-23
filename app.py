@@ -308,12 +308,13 @@ def main():
                     formatted_date = article_data['publish_date'].strftime("%Y-%m-%d %H:%M:%S%z")
                     st.write(f"**Publish Date:** {formatted_date}")
 
+                image_model = None  # Initialize at the start
                 if article_data['image_url']:
+                    image_model = load_image_model('image-model.joblib')
                     image = preprocess_image(article_data['image_url'])
                     if image is not None:
                         image_result = predict_image(image_model, image)
                         st.image(article_data['image_url'], caption="", use_column_width=True)
-                        
                         if image_result == "Real":
                             st.success(f'Image Analysis: Real')
                         else:
