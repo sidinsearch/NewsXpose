@@ -1,114 +1,85 @@
-# Combined Model Application
+# NewsXpose
 
-This project uses Docker to package all dependencies and make deployment easier, especially on platforms like Render.
+NewsXpose is an advanced news analysis platform that helps users detect fake news and analyze content from various sources including articles and YouTube videos.
 
-## Quick Start
+## Features
 
-### Windows
-```powershell
-# Run the build and deploy script
-.\build_and_deploy.ps1
-```
+- Analyze news articles from URLs
+- Process YouTube video content
+- Detect fake news using multiple analysis components:
+  - Text analysis
+  - Image analysis
+  - Domain trust evaluation
+  - LLM-based content analysis
+- Find related articles
+- Visualize analysis results
 
-### Linux/Mac
-```bash
-# Make the script executable
-chmod +x build_and_deploy.sh
+## Deployment on Render
 
-# Run the build and deploy script
-./build_and_deploy.sh
-```
+This project can be easily deployed on Render using Docker. Follow these steps:
 
-## Manual Docker Commands
-
-### Build and run locally
-```bash
-# Build the Docker image
-docker build -t combined-model-app:latest .
-
-# Run the container
-docker run -p 8501:8501 -e PORT=8501 combined-model-app:latest
-```
-
-The application will be available at http://localhost:8501
-
-### Using docker-compose
-```bash
-docker-compose up --build
-```
-
-## Deployment to Render
-
-### Option 1: Deploy via Render Dashboard (Recommended)
-
-1. Push your code to a Git repository (GitHub, GitLab, etc.)
-2. In the Render dashboard, click "New +" and select "Web Service"
-3. Connect your Git repository
-4. Select "Docker" as the environment
-5. Set the following:
-   - Name: combined-model-app (or your preferred name)
+1. Fork or clone this repository to your GitHub account
+2. Sign up for a Render account at [render.com](https://render.com)
+3. Create a new Web Service on Render
+4. Select "Deploy from GitHub repo"
+5. Connect your GitHub account and select this repository
+6. Choose "Docker" as the Environment
+7. Configure the service:
+   - Name: NewsXpose (or your preferred name)
    - Environment: Docker
    - Branch: main (or your default branch)
-   - Plan: Free (or your preferred plan)
-6. Click "Create Web Service"
+   - Region: Choose the closest to your users
+   - Instance Type: Free or paid tier based on your needs
+8. Click "Create Web Service"
 
-### Option 2: Deploy via Render Blueprint
+Render will automatically build and deploy your Docker image. Once deployed, you can access your application at the URL provided by Render.
 
-1. Push your code with the render.yaml file to a Git repository
-2. In the Render dashboard, click "New +" and select "Blueprint"
-3. Connect your Git repository
-4. Render will automatically detect the render.yaml file and set up the service
+## Local Development
 
-## Why Docker?
+To run the application locally:
 
-Using Docker for this project provides several advantages:
-
-1. **Consistent Environment**: The same environment is used for development and production
-2. **Dependency Management**: All dependencies are packaged together, avoiding installation issues
-3. **Faster Deployment**: Render can pull the pre-built image instead of building from scratch
-4. **Resource Efficiency**: The multi-stage build creates a smaller final image
-
-## Technical Details
-
-### Dockerfile Structure
-
-- **Multi-stage build**: Separates build dependencies from runtime dependencies
-- **Virtual environment**: Uses Python venv for clean dependency management
-- **Optimized layers**: Minimizes image size and improves build caching
-- **Environment variables**: Uses PORT environment variable with fallback to 8501
-
-### Requirements
-
-All Python dependencies are specified in requirements.txt with pinned versions for reproducibility.
-
-## Troubleshooting Common Issues
-
-### Model Compatibility Warnings
-
-If you see warnings about incompatible dtype in node arrays:
-1. Run the `update_model_loading.py` script to update model loading code:
-   ```bash
-   python update_model_loading.py
+1. Install dependencies:
    ```
-2. This script will replace standard model loading with a compatible version
-3. The warning is usually harmless if the model still works correctly
-4. If you know the exact scikit-learn version used to train the model, update it in requirements.txt
+   pip install -r requirements.txt
+   ```
 
-### Build Timeouts
+2. Run the Streamlit app:
+   ```
+   streamlit run app.py
+   ```
 
-If your build times out:
-1. Make sure your Dockerfile is optimized (the multi-stage build we created helps with this)
-2. Consider building the image locally and pushing to a registry like Docker Hub
+## Docker
 
-### Application Crashes
+To build and run the Docker image locally:
 
-If your application crashes after deployment:
-1. Check the logs in the Render dashboard
-2. Make sure all environment variables are set correctly
-3. Verify that your application works in the Docker container locally
+```bash
+# Build the Docker image
+docker build -t newsxpose .
 
-### Memory Issues
+# Run the container
+docker run -p 8501:8501 newsxpose
+```
 
-If you see out-of-memory errors:
-1. Upgrade to a larger instance type
-2. Optimize your application to use less memory
+Then access the application at http://localhost:8501
+
+## Deploying on Render
+
+This project is configured for easy deployment on Render using Docker:
+
+1. Push your code to GitHub
+2. Sign up for a Render account at [render.com](https://render.com)
+3. Create a new Web Service
+4. Select "Deploy from GitHub repo"
+5. Connect your GitHub account and select this repository
+6. Choose "Docker" as the Environment
+7. Configure the service:
+   - Name: NewsXpose (or your preferred name)
+   - Environment: Docker
+   - Branch: main (or your default branch)
+   - Region: Choose the closest to your users
+   - Instance Type: Free or paid tier based on your needs
+8. Click "Create Web Service"
+
+Render will automatically build and deploy your Docker image. Once deployed, you can access your application at the URL provided by Render.
+
+## Made with 💻 by [Siddharth Shinde](https://github.com/sidinsearch)

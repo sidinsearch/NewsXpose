@@ -1,10 +1,10 @@
 services:
   - type: web
-    name: combined-model-app
+    name: newsxpose
     env: docker
-    dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /
+    healthCheckTimeout: 5
     envVars:
       - key: PORT
         value: 8501

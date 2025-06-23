@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
-from model_utils import safe_load_model, is_model_compatible
 
 def scrape_google_news(query):
     """Scrape Google News for related articles."""

@@ -24,8 +24,3 @@ var/
 .venv
 venv/
 ENV/
-.idea/
-.vscode/
-*.swp
-*.swo
-.DS_Store

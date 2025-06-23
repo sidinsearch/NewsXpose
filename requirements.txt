@@ -1,38 +1,44 @@
-# Core packages
-streamlit==1.28.0
-numpy==1.24.3
-pandas==2.0.3
-plotly==5.15.0
-nltk==3.8.1
-# Use the exact scikit-learn version that was used to train the model
-# If you know the exact version used for training, uncomment and use that version instead
-# scikit-learn==1.0.2
-scikit-learn==1.2.2
-
-# Web scraping and processing
-requests==2.31.0
-beautifulsoup4==4.12.2
-python-whois==0.8.0
-tldextract==3.4.4
-yt-dlp==2023.7.6
-lxml==4.9.3
-newspaper3k==0.2.8
-
-# Image processing
-opencv-python-headless==4.8.0.76
-pillow==10.0.0
-
-# Visualization
-matplotlib==3.7.2
-seaborn==0.12.2
-
-# AI and ML
-python-dotenv==1.0.0
-openai==0.28.1
-transformers==4.33.2
-torch==2.0.1
-
-# Utilities
-joblib==1.3.2
-regex==2023.6.3
-tqdm==4.66.1
+streamlit
+numpy
+requests
+python-whois
+tldextract
+nltk
+beautifulsoup4
+opencv-python
+pandas
+plotly
+yt-dlp
+scikit-learn==1.5.2
+pickle-mixin
+newspaper3k
+python-dateutil
+regex
+urllib3
+matplotlib
+seaborn
+pillow
+lxml
+lxml_html_clean
+protobuf
+pyyaml
+joblib
+scipy
+threadpoolctl
+certifi
+charset-normalizer
+idna
+six
+tzdata
+pytz
+tenacity
+packaging
+tinysegmenter
+feedparser
+sgmllib3k
+feedfinder2
+jieba3k
+cssselect
+xgboost
+keras
+tensorflow
