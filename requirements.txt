@@ -10,7 +10,6 @@ pandas
 plotly
 yt-dlp
 scikit-learn==1.5.2
-pickle-mixin
 newspaper3k
 python-dateutil
 regex

@@ -12,6 +12,7 @@ import pandas as pd
 import plotly.express as px
 import textwrap
 from datetime import datetime
+import joblib
 
 # Download necessary NLTK data
 nltk.download('stopwords', quiet=True)
@@ -100,11 +101,9 @@ def get_domain_info(url):
         st.error(f"Error getting domain info: {str(e)}")
         return None
 
-def load_image_model(pickle_file):
-    """Load the saved model from a .pkl file for image prediction."""
-    with open(pickle_file, 'rb') as file:
-        model = pickle.load(file)
-    return model
+def load_image_model(joblib_file):
+    """Load the saved model from a .joblib file for image prediction."""
+    return joblib.load(joblib_file)
 
 def calculate_combined_prediction(text_probs, image_result, domain_trust_score, llm_verdict):
     TEXT_WEIGHT = 0.50

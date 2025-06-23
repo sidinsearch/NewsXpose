@@ -21,12 +21,13 @@ import os
 from articlefinder import find_related_articles
 from llm import analyze_article as get_llm_analysis  # Import the function from llm.py
 from scraper import transcribe_youtube_video, get_youtube_thumbnail
+import joblib
 
 
 
 # Load pre-trained ensemble model and vectorizer for text classification
-with open('ensemble_fake_news_detector.pkl', 'rb') as f:
-    ensemble_model, vector = pickle.load(f)
+with open('ensemble_fake_news_detector.joblib', 'rb') as f:
+    ensemble_model, vector = joblib.load(f)
 
 # Download necessary NLTK data
 nltk.download('stopwords', quiet=True)
@@ -115,11 +116,9 @@ def get_domain_info(url):
         st.error(f"Error getting domain info: {str(e)}")
         return None
 
-def load_image_model(pickle_file):
-    """Load the saved model from a .pkl file for image prediction."""
-    with open(pickle_file, 'rb') as file:
-        model = pickle.load(file)
-    return model
+def load_image_model(joblib_file):
+    """Load the saved model from a .joblib file for image prediction."""
+    return joblib.load(joblib_file)
 
 def calculate_combined_prediction(text_probs, image_result, domain_trust_score, llm_verdict):
     TEXT_WEIGHT = 0.50
@@ -310,7 +309,6 @@ def main():
                     st.write(f"**Publish Date:** {formatted_date}")
 
                 if article_data['image_url']:
-                    image_model = load_image_model('image-model.pkl')
                     image = preprocess_image(article_data['image_url'])
                     if image is not None:
                         image_result = predict_image(image_model, image)
