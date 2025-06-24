@@ -29,31 +29,9 @@
 NewsXpose is a state-of-the-art fake news detection system that combines multiple analysis techniques to determine the authenticity of news articles, social media posts, and YouTube videos. The system uses an ensemble of machine learning models, image analysis, domain credibility checking, and LLM-based content analysis to provide a holistic assessment of content authenticity.
 
 <div align="center">
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                                                             │
-│                     NewsXpose System                        │
-│                                                             │
-│  ┌───────────┐    ┌───────────┐    ┌───────────────────┐   │
-│  │           │    │           │    │                   │   │
-│  │  Content  │───▶│  Analysis │───▶│  Authenticity     │   │
-│  │  Input    │    │  Engine   │    │  Assessment       │   │
-│  │           │    │           │    │                   │   │
-│  └───────────┘    └───────────┘    └───────────────────┘   │
-│        │               ▲                     │              │
-│        │               │                     │              │
-│        ▼               │                     ▼              │
-│  ┌───────────┐    ┌───────────┐    ┌───────────────────┐   │
-│  │           │    │           │    │                   │   │
-│  │  Feature  │───▶│  Model    │───▶│  Visualization    │   │
-│  │  Extraction│    │  Ensemble │    │  & Explanation    │   │
-│  │           │    │           │    │                   │   │
-│  └───────────┘    └───────────┘    └───────────────────┘   │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
+  
+![System Overview](images/1.png)
+  
 *High-level overview of the NewsXpose detection system*
   
 </div>
@@ -71,46 +49,9 @@ NewsXpose is a state-of-the-art fake news detection system that combines multipl
 ## 🏗️ System Architecture
 
 <div align="center">
-
-```
-┌───────────────────────────────────────────────────────────────────────────┐
-│                                                                           │
-│                         NewsXpose Architecture                            │
-│                                                                           │
-│  ┌─────────────┐                                     ┌─────────────────┐  │
-│  │ Input Layer │                                     │ Output Layer    │  │
-│  └─────────────┘                                     └─────────────────┘  │
-│        │                                                     ▲            │
-│        ▼                                                     │            │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │                                                                     │  │
-│  │  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐   ┌─────────┐ │  │
-│  │  │             │   │             │   │             │   │         │ │  │
-│  │  │ Text        │   │ Image       │   │ Domain      │   │ LLM     │ │  │
-│  │  │ Analysis    │   │ Analysis    │   │ Analysis    │   │ Analysis│ │  │
-│  │  │ (50%)       │   │ (15%)       │   │ (15%)       │   │ (20%)   │ │  │
-│  │  │             │   │             │   │             │   │         │ │  │
-│  │  └──────┬──────┘   └──────┬──────┘   └──────┬──────┘   └────┬────┘ │  │
-│  │         │                 │                 │                │      │  │
-│  │         ▼                 ▼                 ▼                ▼      │  │
-│  │  ┌─────────────────────────────────────────────────────────────┐   │  │
-│  │  │                                                             │   │  │
-│  │  │                    Weighted Ensemble                        │   │  │
-│  │  │                                                             │   │  │
-│  │  └─────────────────────────────┬───────────────────────────────┘   │  │
-│  │                                 │                                   │  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                   │                                       │
-│                                   ▼                                       │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │                                                                     │  │
-│  │                       Decision & Explanation                        │  │
-│  │                                                                     │  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                           │
-└───────────────────────────────────────────────────────────────────────────┘
-```
-
+  
+![System Architecture](images/2.png)
+  
 *Detailed architecture of the NewsXpose detection system*
   
 </div>
@@ -124,23 +65,9 @@ The system follows a weighted ensemble approach:
 These weights were determined through extensive testing to optimize overall accuracy.
 
 <div align="center">
-
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│             │     │             │     │             │     │             │
-│  Input      │────▶│  Feature    │────▶│  Analysis   │────▶│  Decision   │
-│  Content    │     │  Extraction │     │  Pipeline   │     │  Engine     │
-│             │     │             │     │             │     │             │
-└─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘
-                                                                    │
-                    ┌─────────────┐     ┌─────────────┐             │
-                    │             │     │             │             │
-                    │  User       │◀────│  Results    │◀────────────┘
-                    │  Interface  │     │  Display    │
-                    │             │     │             │
-                    └─────────────┘     └─────────────┘
-```
-
+  
+![Detection Flow](images/3.png)
+  
 *Flow diagram of the NewsXpose detection process*
   
 </div>
@@ -619,28 +546,3 @@ This project was developed as a mini project for educational purposes.
 ## 📜 License
 
 This project is proprietary and closed-source. All rights reserved.
-
-## 🎨 Illustration Prompts
-
-Here are detailed prompts you can use to create professional illustrations for this README:
-
-### 1. System Architecture Diagram
-
-**Prompt for Midjourney/DALL-E/Stable Diffusion:**
-```
-Create a professional, clean tech diagram showing a fake news detection system architecture. The diagram should have four main components arranged in a grid: Text Analysis (50%), Image Analysis (15%), Domain Analysis (15%), and LLM Analysis (20%). Each component should be connected to a central "Weighted Ensemble" node, which then connects to a "Decision & Explanation" component. Use a blue and white color scheme with subtle tech-inspired elements like circuit patterns in the background. The style should be minimalist and corporate, suitable for a technical whitepaper or presentation. Include small icons representing each analysis type (document for text, camera for image, globe for domain, brain for LLM). Add percentage weights visually.
-```
-
-### 2. Dataset Composition Visualization
-
-**Prompt for Midjourney/DALL-E/Stable Diffusion:**
-```
-Create a professional data visualization showing the composition of an image dataset for fake news detection. The visualization should show three main dataset components: COCO-25K (25,000 images), CIFAKE (60,000 images), and Real & Fake Faces (140,000 images). Use a horizontal stacked bar or segmented circle diagram with distinct colors for each dataset (blue for COCO, green for CIFAKE, purple for Faces). Include small sample thumbnails showing example images from each dataset. The visualization should be clean, modern, and data-focused with clear labels showing the number of images in each dataset. Add a title "Image Dataset Composition (175,000+ images)" and use a white background with subtle grid lines.
-```
-
-### 3. Model Performance Comparison Chart
-
-**Prompt for Midjourney/DALL-E/Stable Diffusion:**
-```
-Create a professional bar chart visualization comparing the performance of different machine learning models for fake news detection. The chart should show accuracy percentages for 5 models: Random Forest (86.44%), AdaBoost (91.45%), Logistic Regression (94.78%), XGBoost (96.10%), and Ensemble Model (96.24%). Use a consistent color scheme with the Ensemble bar highlighted in a brighter color. The chart should have a clean, modern design with clear labels, grid lines, and a title "Model Performance Comparison". Include small icons or visual elements representing each algorithm type. The style should be suitable for a technical presentation or academic paper, with a focus on data clarity and professional appearance.
-```
