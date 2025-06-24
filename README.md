@@ -134,7 +134,7 @@ These weights were determined through extensive testing to optimize overall accu
                                                                     │
                     ┌─────────────┐     ┌─────────────┐             │
                     │             │     │             │             │
-                    │    User     │◀────│   Results   │◀───────────┘
+                    │    User      ◀────   Results     ◀───────────┘
                     │  Interface  │     │   Display   │
                     │             │     │             │
                     └─────────────┘     └─────────────┘
