@@ -498,20 +498,9 @@ Individual model performance:
 
 **[Try NewsXpose Live Demo](https://newsxpose-hosted.onrender.com/)**
 
-```
-┌───────────────────────────────────────────────────────────┐
-│                                                           │
-│                 NewsXpose Demo Video                      │
-│                                                           │
-│              [Video Thumbnail Placeholder]                │
-│                                                           │
-│              Click to watch the demo video                │
-│                     (coming soon)                         │
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-```
 
-*Click the image to watch the demo video (coming soon)*
+https://github.com/user-attachments/assets/8e687005-4959-492d-869e-ab16f5bcc0a0
+
   
 </div>
 
