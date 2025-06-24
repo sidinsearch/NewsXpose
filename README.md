@@ -122,7 +122,7 @@ The system follows a weighted ensemble approach:
 
 These weights were determined through extensive testing to optimize overall accuracy.
 
-<div align="center">
+
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
