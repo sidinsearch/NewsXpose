@@ -30,29 +30,8 @@ NewsXpose is a state-of-the-art fake news detection system that combines multipl
 
 <div align="center">
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                                                             │
-│                     NewsXpose System                        │
-│                                                             │
-│  ┌───────────┐    ┌───────────┐    ┌───────────────────┐    │
-│  │           │    │           │    │                   │    │
-│  │  Content  │───▶│  Analysis │───▶│  Authenticity    │    │
-│  │  Input    │    │  Engine   │    │  Assessment       │    │
-│  │           │    │           │    │                   │    │
-│  └───────────┘    └───────────┘    └───────────────────┘    │
-│        │               ▲                     │              │
-│        │               │                     │              │
-│        ▼               │                     ▼              │
-│  ┌───────────┐    ┌───────────┐    ┌───────────────────┐    │
-│  │           │    │           │    │                   │    │
-│  │  Feature  │───▶│  Model    │───▶│  Visualization   │    │
-│  │ Extraction│    │  Ensemble │    │  & Explanation    │    │
-│  │           │    │           │    │                   │    │
-│  └───────────┘    └───────────┘    └───────────────────┘    │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+![NewsXpose - visual selection](https://github.com/user-attachments/assets/58bd8a33-f7e4-4134-bf34-9904ffe57c61)
+
 
 *High-level overview of the NewsXpose detection system*
   
@@ -72,43 +51,8 @@ NewsXpose is a state-of-the-art fake news detection system that combines multipl
 
 <div align="center">
 
-```
-┌───────────────────────────────────────────────────────────────┐
-│                                                               │
-│                   NewsXpose Architecture                      │
-│                                                               │
-│  ┌─────────────┐                       ┌─────────────────┐    │
-│  │ Input Layer │                       │ Output Layer    │    │
-│  └─────────────┘                       └─────────────────┘    │
-│        │                                       ▲              │
-│        ▼                                       │              │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │                                                         │  │
-│  │  ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐  │  │
-│  │  │         │   │         │   │         │   │         │  │  │
-│  │  │  Text   │   │  Image  │   │ Domain  │   │  LLM    │  │  │
-│  │  │  (50%)  │   │  (15%)  │   │  (15%)  │   │  (20%)  │  │  │
-│  │  │         │   │         │   │         │   │         │  │  │
-│  │  └────┬────┘   └────┬────┘   └────┬────┘   └────┬────┘  │  │
-│  │       │             │             │             │       │  │
-│  │       ▼             ▼             ▼             ▼       │  │
-│  │  ┌─────────────────────────────────────────────────┐    │  │
-│  │  │                                                 │    │  │
-│  │  │              Weighted Ensemble                  │    │  │
-│  │  │                                                 │    │  │
-│  │  └───────────────────────┬─────────────────────────┘    │  │
-│  │                          │                              │  │
-│  └──────────────────────────────────────────────────────────┘ │
-│                             │                                 │
-│                             ▼                                 │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │                                                         │  │
-│  │               Decision & Explanation                    │  │
-│  │                                                         │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│                                                               │
-└───────────────────────────────────────────────────────────────┘
-```
+ ![NewsXpose - visual selection (1)](https://github.com/user-attachments/assets/33d24fbc-d973-4b6f-917f-9728badb066f)
+
 
 *Detailed architecture of the NewsXpose detection system*
   
@@ -122,23 +66,10 @@ The system follows a weighted ensemble approach:
 
 These weights were determined through extensive testing to optimize overall accuracy.
 
+<div align="center">
 
+![NewsXpose - visual selection (2)](https://github.com/user-attachments/assets/0902160c-bdf9-470c-86e6-7af1d9bc45c5)
 
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│             │     │             │     │             │     │             │
-│   Input     │────▶│   Feature   │────▶│  Analysis   │────▶│ Decision  │
-│  Content    │     │  Extraction │     │  Pipeline   │     │   Engine    │
-│             │     │             │     │             │     │             │
-└─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘
-                                                                    │
-                    ┌─────────────┐     ┌─────────────┐             │
-                    │             │     │             │             │
-                    │    User      ◀────   Results     ◀───────────┘
-                    │  Interface  │     │   Display   │
-                    │             │     │             │
-                    └─────────────┘     └─────────────┘
-```
 
 *Flow diagram of the NewsXpose detection process*
   
@@ -182,22 +113,8 @@ Our image dataset is a comprehensive collection from multiple sources, totaling 
 
 <div align="center">
 
-```
-┌───────────────────────────────────────────────────────────┐
-│                                                           │
-│                  Dataset Composition                      │
-│                                                           │
-│  ┌─────────────┐  ┌─────────────┐  ┌───────────────────┐  │
-│  │             │  │             │  │                   │  │
-│  │  COCO-25K   │  │   CIFAKE    │  │   Real & Fake     │  │
-│  │ (25,000 img)│  │(60,000 img) │  │  Faces (140K img) │  │
-│  │             │  │             │  │                   │  │
-│  └─────────────┘  └─────────────┘  └───────────────────┘  │
-│                                                           │
-│  Total: 175,000+ images for training and validation       │
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-```
+
+![NewsXpose - visual selection (3)](https://github.com/user-attachments/assets/d195dfc3-90e2-427f-b6a9-174c8868f245)
 
 *Composition of the image dataset used for training*
   
@@ -235,27 +152,8 @@ These models are combined using a soft voting classifier with the following perf
 
 <div align="center">
 
-```
-┌───────────────────────────────────────────────────────────┐
-│                                                           │
-│             Model Performance Comparison                  │
-│                                                           │
-│  100% ┼────────────────────────────────────────────── ┐   │
-│       │                                      ▄▄▄▄▄▄▄▄ │   │
-│   95% ┼─────────────────── ▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄ ████████ │   │
-│       │                    ████████ ████████ ████████ │   │
-│   90% ┼───────   ▄▄▄▄▄▄▄▄  ████████ ████████ ████████ │   │
-│       │          ████████  ████████ ████████ ████████ │   │
-│   85% ┼ ▄▄▄▄▄▄▄▄ ████████  ████████ ████████ ████████ │   │
-│       │ ████████ ████████  ████████ ████████ ████████ │   │
-│   80% ┼ ████████ ████████  ████████ ████████ ████████ │   │
-│       │ ████████ ████████  ████████ ████████ ████████ │   │
-│   75% ┼─┴────────┴─────────┴─────────┴─────────┴───────┘  │
-│         Random   AdaBoost  Logistic  XGBoost  Ensemble    │
-│         Forest            Regression                      │
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-```
+
+![NewsXpose - visual selection (4)](https://github.com/user-attachments/assets/831267f8-7a8b-4e40-aeb3-92a5947f5f5b)
 
 *Performance comparison of individual models vs. ensemble*
   
@@ -270,45 +168,8 @@ The image detection component uses a Convolutional Neural Network (CNN) with:
 
 <div align="center">
 
-```
-┌───────────────────────────────────────────────────────────┐
-│                                                           │
-│                  CNN Architecture                         │
-│                                                           │
-│  Input Image (224x224x3)                                  │
-│       │                                                   │
-│       ▼                                                   │
-│  Conv2D (32 filters, 3x3) + ReLU                          │
-│       │                                                   │
-│       ▼                                                   │
-│  MaxPooling (2x2)                                         │
-│       │                                                   │
-│       ▼                                                   │
-│  Conv2D (64 filters, 3x3) + ReLU                          │
-│       │                                                   │
-│       ▼                                                   │
-│  MaxPooling (2x2)                                         │
-│       │                                                   │
-│       ▼                                                   │
-│  Conv2D (128 filters, 3x3) + ReLU                         │
-│       │                                                   │
-│       ▼                                                   │
-│  MaxPooling (2x2)                                         │
-│       │                                                   │
-│       ▼                                                   │
-│  Flatten                                                  │
-│       │                                                   │
-│       ▼                                                   │
-│  Dense (128) + ReLU + Dropout (0.5)                       │
-│       │                                                   │
-│       ▼                                                   │
-│  Dense (1) + Sigmoid                                      │
-│       │                                                   │
-│       ▼                                                   │
-│  Output (Real/Fake)                                       │
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-```
+![NewsXpose - visual selection (5)](https://github.com/user-attachments/assets/01882949-bc7f-4815-ba07-9236fa58da70)
+
 
 *Architecture of the CNN used for image authenticity detection*
   
@@ -323,38 +184,8 @@ The domain analysis component evaluates source credibility using:
 
 <div align="center">
 
-```
-┌──────────────────────────────────────────────────────────┐
-│                                                          │
-│              Domain Trust Calculation                    │
-│                                                          │
-│  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐     │
-│  │             │   │             │   │             │     │
-│  │ Domain Age  │   │ Reputation  │   │ WHOIS Data  │     │
-│  │   (30%)     │   │  Database   │   │  Analysis   │     │
-│  │             │   │   (40%)     │   │   (30%)     │     │
-│  └──────┬──────┘   └──────┬──────┘   └──────┬──────┘     │
-│         │                 │                 │            │
-│         └─────────────────┼─────────────────┘            │
-│                           │                              │
-│                           ▼                              │
-│                  ┌─────────────────┐                     │
-│                  │                 │                     │
-│                  │  Trust Score    │                     │
-│                  │  Calculation    │                     │
-│                  │                 │                     │
-│                  └────────┬────────┘                     │
-│                           │                              │
-│                           ▼                              │
-│                  ┌─────────────────┐                     │
-│                  │                 │                     │
-│                  │  Domain Trust   │                     │
-│                  │ Score (0-100)   │                     │
-│                  │                 │                     │
-│                  └─────────────────┘                     │
-│                                                          │
-└──────────────────────────────────────────────────────────┘
-```
+![NewsXpose - visual selection (6)](https://github.com/user-attachments/assets/aa967a69-952c-45b6-8ee9-0f4c11cb7f21)
+
 
 *How domain trust score is calculated based on various factors*
   
@@ -466,27 +297,8 @@ Individual model performance:
 
 <div align="center">
 
-```
-┌───────────────────────────────────────────────────────────┐
-│                                                           │
-│              Combined System Performance                  │
-│                                                           │
-│  100% ┼──────────────────────────────────────────────┐    │
-│       │                                              │    │
-│   95% ┼───────────────  ▄▄▄▄▄▄▄▄          ▄▄▄▄▄▄▄▄   │    │
-│       │                 ████████          ████████   │    │
-│   90% ┼───  ▄▄▄▄▄▄▄▄    ████████ ▄▄▄▄▄▄▄▄ ████████   │    │
-│       │     ████████    ████████ ████████ ████████   │    │
-│   85% ┼     ████████    ████████ ████████ ████████   │    │
-│       │     ████████    ████████ ████████ ████████   │    │
-│   80% ┼     ████████    ████████ ████████ ████████   │    │
-│       │     ████████    ████████ ████████ ████████   │    │
-│   75% ┼─────┴─────────  ┴─────────┴─────────┴─────────┘   │
-│         Image     Text     LLM      Domain    Overall     │
-│        Analysis  Analysis Analysis  Analysis  Performance │
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-```
+![NewsXpose - visual selection (7)](https://github.com/user-attachments/assets/606a1985-e9a9-4874-9c5b-34523f4d0fd5)
+
 
 *Performance of the combined system on different types of content*
   
