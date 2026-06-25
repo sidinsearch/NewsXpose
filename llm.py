@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 
 # Set up Gemini credentials
-GEMINI_API_KEY = "AIzaSyC6TBo0jSoaUBParbnBHSCzEdPUFGFvXD8"  # Replace with your actual API key
+GEMINI_API_KEY = " Replace with your actual API key"  # Replace with your actual API key
 
 def analyze_article(article_text, article_title, domain_info=None, image_result=None):
     """Analyze article using Google Gemini."""
