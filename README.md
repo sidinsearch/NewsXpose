@@ -28,14 +28,8 @@
 
 NewsXpose is a state-of-the-art fake news detection system that combines multiple analysis techniques to determine the authenticity of news articles, social media posts, and YouTube videos. The system uses an ensemble of machine learning models, image analysis, domain credibility checking, and LLM-based content analysis to provide a holistic assessment of content authenticity.
 
-<div align="center">
+<img width="1356" height="838" alt="image" src="https://github.com/user-attachments/assets/87531932-a856-4c07-aad5-0d5b08d93d05" />
 
-![NewsXpose - visual selection](https://github.com/user-attachments/assets/58bd8a33-f7e4-4134-bf34-9904ffe57c61)
-
-
-*High-level overview of the NewsXpose detection system*
-  
-</div>
 
 ## 🚀 Key Features
 
@@ -49,14 +43,8 @@ NewsXpose is a state-of-the-art fake news detection system that combines multipl
 
 ## 🏗️ System Architecture
 
-<div align="center">
+<img width="1356" height="1160" alt="image" src="https://github.com/user-attachments/assets/167c4d9e-cd94-4358-983e-4e3bb9147a24" />
 
- ![NewsXpose - visual selection (1)](https://github.com/user-attachments/assets/33d24fbc-d973-4b6f-917f-9728badb066f)
-
-
-*Detailed architecture of the NewsXpose detection system*
-  
-</div>
 
 The system follows a weighted ensemble approach:
 - **Text Analysis**: 50% weight
@@ -66,14 +54,10 @@ The system follows a weighted ensemble approach:
 
 These weights were determined through extensive testing to optimize overall accuracy.
 
-<div align="center">
-
-![NewsXpose - visual selection (2)](https://github.com/user-attachments/assets/0902160c-bdf9-470c-86e6-7af1d9bc45c5)
+<img width="1356" height="1090" alt="image" src="https://github.com/user-attachments/assets/3b13734a-8816-4291-9e43-e9945dfcb6e1" />
 
 
-*Flow diagram of the NewsXpose detection process*
-  
-</div>
+
 
 ## 📊 Datasets
 
@@ -111,14 +95,10 @@ Our image dataset is a comprehensive collection from multiple sources, totaling 
    - Contains 70,000 real face images and 70,000 AI-generated face images
    - Used specifically for training the model to detect fake human faces, which are common in fake news
 
-<div align="center">
+<img width="1356" height="680" alt="image" src="https://github.com/user-attachments/assets/55dedff1-8e4d-494b-bea4-cacc25860cf0" />
 
 
-![NewsXpose - visual selection (3)](https://github.com/user-attachments/assets/d195dfc3-90e2-427f-b6a9-174c8868f245)
 
-*Composition of the image dataset used for training*
-  
-</div>
 
 ## 🧠 Models & Algorithms
 
@@ -150,14 +130,8 @@ These models are combined using a soft voting classifier with the following perf
 - Training Accuracy: 97.58%
 - Testing Accuracy: 96.24%
 
-<div align="center">
+<img width="1356" height="734" alt="image" src="https://github.com/user-attachments/assets/8aa7f863-8c4e-4c24-9e7e-0916c16d7a85" />
 
-
-![NewsXpose - visual selection (4)](https://github.com/user-attachments/assets/831267f8-7a8b-4e40-aeb3-92a5947f5f5b)
-
-*Performance comparison of individual models vs. ensemble*
-  
-</div>
 
 ### Image Detection
 
@@ -166,14 +140,9 @@ The image detection component uses a Convolutional Neural Network (CNN) with:
 - Dense layers with dropout for regularization
 - Binary classification output (real vs. AI-generated)
 
-<div align="center">
-
-![NewsXpose - visual selection (5)](https://github.com/user-attachments/assets/01882949-bc7f-4815-ba07-9236fa58da70)
-
+<img width="1356" height="1074" alt="image" src="https://github.com/user-attachments/assets/ba4db2b7-92eb-4284-b788-456245287a65" />
 
 *Architecture of the CNN used for image authenticity detection*
-  
-</div>
 
 ### Domain Analysis
 
@@ -182,14 +151,8 @@ The domain analysis component evaluates source credibility using:
 - Domain age assessment
 - Reputation database lookup
 
-<div align="center">
+<img width="1356" height="798" alt="image" src="https://github.com/user-attachments/assets/9a78db42-7c91-4412-ae68-45b8928d781a" />
 
-![NewsXpose - visual selection (6)](https://github.com/user-attachments/assets/aa967a69-952c-45b6-8ee9-0f4c11cb7f21)
-
-
-*How domain trust score is calculated based on various factors*
-  
-</div>
 
 ### LLM Analysis
 
@@ -199,37 +162,8 @@ The LLM analysis component leverages a large language model to evaluate:
 - Potential biases
 - Sensationalism
 
-<div align="center">
 
-```
-┌───────────────────────────────────────────────────────────┐
-│                                                           │
-│                LLM Analysis Process                       │
-│                                                           │
-│  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐  │
-│  │             │     │             │     │             │  │
-│  │  Content    │────▶│    LLM      │────▶│  Analysis  │  │
-│  │   Input     │     │ Processing  │     │   Results   │  │
-│  │             │     │             │     │             │  │
-│  └─────────────┘     └─────────────┘     └─────────────┘  │
-│                            │                   │          │
-│                            ▼                   ▼          │
-│  ┌───────────────────────────────────────────────────────┐│
-│  │                                                       ││
-│  │  Evaluation Criteria:                                 ││
-│  │  - Factual Consistency (30%)                          ││
-│  │  - Writing Style Analysis (25%)                       ││
-│  │  - Bias Detection (25%)                               ││
-│  │  - Sensationalism Assessment (20%)                    ││
-│  │                                                       ││
-│  └───────────────────────────────────────────────────────┘│
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-```
 
-*Process flow of the LLM analysis component*
-  
-</div>
 
 ## 📈 Performance Metrics
 
@@ -254,8 +188,6 @@ Individual model performance:
 - XGBoost: 96.10% accuracy
 - AdaBoost: 91.45% accuracy
 - **Ensemble Model: 96.24% accuracy**
-
-<div align="center">
 
 ```
 ┌───────────────────────────────────────────────────────────┐
@@ -283,8 +215,6 @@ Individual model performance:
 ```
 
 *Confusion matrix for the ensemble model*
-  
-</div>
 
 ### Image Detection Model
 
@@ -295,14 +225,36 @@ Individual model performance:
 
 ### Overall System Performance
 
-<div align="center">
-
-![NewsXpose - visual selection (7)](https://github.com/user-attachments/assets/606a1985-e9a9-4874-9c5b-34523f4d0fd5)
-
+```
+┌──────────────────────────────────────────────────────────────────┐
+│               Overall System Performance by Content Type         │
+│                                                                  │
+│  Text-only articles                                              │
+│  Precision  ████████████████████████████████████████  97%       │
+│  Recall     ████████████████████████████████████████  96%       │
+│  F1-Score   ████████████████████████████████████████  96%       │
+│                                                                  │
+│  Articles with images                                            │
+│  Precision  ██████████████████████████████████████░░  94%       │
+│  Recall     ██████████████████████████████████████░░  93%       │
+│  F1-Score   ██████████████████████████████████████░░  93%       │
+│                                                                  │
+│  YouTube videos                                                  │
+│  Precision  ██████████████████████████████████░░░░░░  88%       │
+│  Recall     ████████████████████████████████████░░░░  91%       │
+│  F1-Score   ████████████████████████████████████░░░░  89%       │
+│                                                                  │
+│  Social media posts                                              │
+│  Precision  ████████████████████████████████░░░░░░░░  85%       │
+│  Recall     ██████████████████████████████████░░░░░░  87%       │
+│  F1-Score   ██████████████████████████████████░░░░░░  86%       │
+│                                                                  │
+│  ◀─────────────────────────────────────────────────────────────▶│
+│  70%        80%        88%        94%        97%   100%          │
+└──────────────────────────────────────────────────────────────────┘
+```
 
 *Performance of the combined system on different types of content*
-  
-</div>
 
 ## 🎬 Demo
 
@@ -310,10 +262,6 @@ Individual model performance:
 
 **[Try NewsXpose Live Demo](https://newsxpose-hosted.onrender.com/)**
 
-
-https://github.com/user-attachments/assets/8e687005-4959-492d-869e-ab16f5bcc0a0
-
-  
 </div>
 
 ## 🌟 What Makes NewsXpose Different
@@ -330,33 +278,8 @@ NewsXpose stands out from other fake news detection solutions due to its:
 
 5. **Adaptability to different content types**: NewsXpose can analyze not just traditional news articles but also social media posts and YouTube videos.
 
-<div align="center">
+<img width="1356" height="618" alt="image" src="https://github.com/user-attachments/assets/5c7093bc-5212-4e8c-b011-da141671ad8e" />
 
-```
-┌───────────────────────────────────────────────────────────┐
-│                                                           │
-│             NewsXpose Key Differentiators                 │
-│                                                           │
-│  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐      │
-│  │             │   │             │   │             │      │
-│  │ Multi-modal │   │  Weighted   │   │ Transparent │      │
-│  │  Analysis   │   │  Ensemble   │   │  Decision   │      │
-│  │             │   │             │   │   Making    │      │
-│  └─────────────┘   └─────────────┘   └─────────────┘      │
-│                                                           │
-│  ┌───────────────────────┐   ┌───────────────────────┐    │
-│  │                       │   │                       │    │
-│  │   Cross-referencing   │   │   Multi-content Type  │    │
-│  │     Capabilities      │   │     Adaptability      │    │
-│  │                       │   │                       │    │
-│  └───────────────────────┘   └───────────────────────┘    │
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-```
-
-*Key differentiators of the NewsXpose system*
-  
-</div>
 
 ## 🔮 Future Directions
 
@@ -380,38 +303,14 @@ NewsXpose stands out from other fake news detection solutions due to its:
    - Improving the explainability of model decisions
    - Providing more detailed reasoning for verdicts
 
-<div align="center">
+<img width="1356" height="638" alt="image" src="https://github.com/user-attachments/assets/055cce3b-095f-4eab-884c-2c131616a2bb" />
 
-```
-┌───────────────────────────────────────────────────────────┐
-│                                                           │
-│                 Future Development                        │
-│                                                           │
-│  Phase 1        Phase 2        Phase 3        Phase 4     │
-│     │              │              │              │        │
-│     ▼              ▼              ▼              ▼        │
-│  ┌─────────┐   ┌───────────┐   ┌─────────┐   ┌─────────┐  │
-│  │Enhanced │   │Multimodalv│   │Real-time│   │Explain- │  │
-│  │  LLM    │──▶  Learning   ──▶ Monitor  ──▶ able AI │  │
-│  │Integra- │   │           │   │  ing    │   │         │  │
-│  │ tion    │   │           │   │         │   │         │  │
-│  └─────────┘   └───────────┘   └─────────┘   └─────────┘  │
-│                                                           │
-│                  ┌─────────────────┐                      │
-│                  │                 │                      │
-│                  │  User Feedback  │                      │
-│                  │      Loop       │                      │
-│                  │                 │                      │
-│                  └─────────────────┘                      │
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-```
 
-*Roadmap for future development of NewsXpose*
-  
-</div>
 
 ## 👥 Contributors
 
 This project was developed as a College Mini Project for Educational purposes.
 
+## 📜 License
+
+This project is proprietary and closed-source. All rights reserved.
