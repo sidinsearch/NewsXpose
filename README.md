@@ -260,7 +260,7 @@ Individual model performance:
 
 <div align="center">
 
-**[Try NewsXpose Live Demo](https://newsxpose-hosted.onrender.com/)**
+**[Try NewsXpose Live Demo](https://newsxpose.onrender.com)**
 
 </div>
 
