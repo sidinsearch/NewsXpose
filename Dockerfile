@@ -1,19 +1,11 @@
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libssl-dev \
-    libffi-dev \
-    python3-dev \
-    gcc \
-    g++ \
+# Install only the runtime system dependencies.
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
-    libsm6 \
-    libxext6 \
-    libxrender-dev \
+    libgomp1 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -34,4 +26,4 @@ EXPOSE 8501
 ENV PYTHONUNBUFFERED=1
 
 # Command to run the application
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]

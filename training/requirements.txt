@@ -1,0 +1,6 @@
+pandas
+joblib
+nltk
+scikit-learn==1.5.2
+xgboost-cpu==2.1.1
+tensorflow==2.21.0

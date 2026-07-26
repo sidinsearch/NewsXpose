@@ -12,7 +12,7 @@ import pandas as pd
 import plotly.express as px
 import textwrap
 from datetime import datetime
-import joblib
+from ai_edge_litert.interpreter import Interpreter
 
 # Download necessary NLTK data
 nltk.download('stopwords', quiet=True)
@@ -101,9 +101,11 @@ def get_domain_info(url):
         st.error(f"Error getting domain info: {str(e)}")
         return None
 
-def load_image_model(joblib_file):
-    """Load the saved model from a .joblib file for image prediction."""
-    return joblib.load(joblib_file)
+def load_image_model(model_file):
+    """Load the lightweight LiteRT image model."""
+    interpreter = Interpreter(model_path=model_file)
+    interpreter.allocate_tensors()
+    return interpreter
 
 def calculate_combined_prediction(text_probs, image_result, domain_trust_score, llm_verdict):
     TEXT_WEIGHT = 0.50
@@ -153,16 +155,22 @@ def preprocess_image(image_url):
         if img is None:
             return None
         img = cv2.resize(img, (32, 32))
-        img = img / 255.0
+        img = img.astype(np.float32) / 255.0
         img = np.expand_dims(img, axis=0)
         return img
     except Exception as e:
         st.error(f"Error processing image: {str(e)}")
         return None
 
-def predict_image(model, image):
+def predict_image(interpreter, image):
     """Predict if image is real or AI-generated."""
-    prediction = model.predict(image)
+    input_details = interpreter.get_input_details()[0]
+    output_details = interpreter.get_output_details()[0]
+    interpreter.set_tensor(input_details["index"], image)
+    interpreter.invoke()
+    prediction = float(
+        interpreter.get_tensor(output_details["index"]).reshape(-1)[0]
+    )
     return "Real" if prediction < 0.5 else "AI-generated"
 
 def stemming(content):

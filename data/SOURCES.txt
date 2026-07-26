@@ -1,0 +1,26 @@
+NewsXpose dataset sources
+=========================
+
+Dataset files are intentionally not stored in this Git repository.
+Download them from their original sources when retraining the models.
+
+Text dataset
+------------
+WELFake (WELFake_Dataset.csv):
+https://www.kaggle.com/datasets/studymart/welfake-dataset-for-fake-news
+
+Image datasets
+--------------
+COCO-25K:
+https://www.kaggle.com/datasets/trungit/coco25k/data
+
+CIFAKE (real and AI-generated synthetic images):
+https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images
+
+140K Real and Fake Faces:
+https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces/data
+
+Expected local placement
+------------------------
+Text: data/WELFake_Dataset.csv
+Images: a local directory containing real/ and fake/ subdirectories

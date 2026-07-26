@@ -21,6 +21,13 @@ var/
 .installed.cfg
 *.egg
 .env
+.env.*
+.streamlit/secrets.toml
 .venv
 venv/
 ENV/
+data/*
+!data/SOURCES.txt
+training/
+notebooks/
+docs/

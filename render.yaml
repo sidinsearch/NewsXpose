@@ -1,10 +1,13 @@
 services:
   - type: web
     name: newsxpose
-    env: docker
+    runtime: docker
     plan: free
+    region: singapore
+    autoDeployTrigger: commit
     healthCheckPath: /
-    healthCheckTimeout: 5
     envVars:
-      - key: PORT
-        value: 8501
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash

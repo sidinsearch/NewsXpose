@@ -1,12 +1,18 @@
 import requests
-from bs4 import BeautifulSoup
 import os
 
-# Set up Gemini credentials
-GEMINI_API_KEY = " Replace with your actual API key"  # Replace with your actual API key
+# Secrets are supplied at runtime. Never commit an API key to this file.
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
 
 def analyze_article(article_text, article_title, domain_info=None, image_result=None):
     """Analyze article using Google Gemini."""
+    if not GEMINI_API_KEY:
+        return (
+            "unknown",
+            "LLM analysis is unavailable because GEMINI_API_KEY is not configured.",
+        )
+
     try:
         # Prepare context information
         context = f"""Context:
@@ -35,7 +41,10 @@ def analyze_article(article_text, article_title, domain_info=None, image_result=
         Explanation: [brief reasoning]"""
         
         # Configure Gemini request
-        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+        url = (
+            "https://generativelanguage.googleapis.com/v1beta/models/"
+            f"{GEMINI_MODEL}:generateContent"
+        )
         headers = {"Content-Type": "application/json"}
         data = {
             "contents": [
@@ -49,11 +58,14 @@ def analyze_article(article_text, article_title, domain_info=None, image_result=
             ]
         }
         
-        # Add API key to URL
-        url_with_key = f"{url}?key={GEMINI_API_KEY}"
-        
         # Get Gemini response
-        response = requests.post(url_with_key, headers=headers, json=data, timeout=30)
+        response = requests.post(
+            url,
+            params={"key": GEMINI_API_KEY},
+            headers=headers,
+            json=data,
+            timeout=30,
+        )
         
         # Parse response
         verdict = "unknown"

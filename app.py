@@ -22,6 +22,7 @@ from articlefinder import find_related_articles
 from llm import analyze_article as get_llm_analysis  # Import the function from llm.py
 from scraper import transcribe_youtube_video, get_youtube_thumbnail
 import joblib
+from ai_edge_litert.interpreter import Interpreter
 
 
 
@@ -116,9 +117,11 @@ def get_domain_info(url):
         st.error(f"Error getting domain info: {str(e)}")
         return None
 
-def load_image_model(joblib_file):
-    """Load the saved model from a .joblib file for image prediction."""
-    return joblib.load(joblib_file)
+def load_image_model(model_file):
+    """Load the lightweight LiteRT image model."""
+    interpreter = Interpreter(model_path=model_file)
+    interpreter.allocate_tensors()
+    return interpreter
 
 def calculate_combined_prediction(text_probs, image_result, domain_trust_score, llm_verdict):
     TEXT_WEIGHT = 0.50
@@ -168,16 +171,22 @@ def preprocess_image(image_url):
         if img is None:
             return None
         img = cv2.resize(img, (32, 32))
-        img = img / 255.0
+        img = img.astype(np.float32) / 255.0
         img = np.expand_dims(img, axis=0)
         return img
     except Exception as e:
         st.error(f"Error processing image: {str(e)}")
         return None
 
-def predict_image(model, image):
+def predict_image(interpreter, image):
     """Predict if image is real or AI-generated."""
-    prediction = model.predict(image)
+    input_details = interpreter.get_input_details()[0]
+    output_details = interpreter.get_output_details()[0]
+    interpreter.set_tensor(input_details["index"], image)
+    interpreter.invoke()
+    prediction = float(
+        interpreter.get_tensor(output_details["index"]).reshape(-1)[0]
+    )
     return "Real" if prediction < 0.5 else "AI-generated"
 
 def stemming(content):
@@ -310,11 +319,11 @@ def main():
 
                 image_model = None  # Initialize at the start
                 if article_data['image_url']:
-                    image_model = load_image_model('image-model.joblib')
+                    image_model = load_image_model('image-model.tflite')
                     image = preprocess_image(article_data['image_url'])
                     if image is not None:
                         image_result = predict_image(image_model, image)
-                        st.image(article_data['image_url'], caption="", use_column_width=True)
+                        st.image(article_data['image_url'], caption="", width="stretch")
                         if image_result == "Real":
                             st.success(f'Image Analysis: Real')
                         else:
@@ -384,7 +393,7 @@ def main():
             with col1:
                 # Display stacked bar chart
                 fig = create_stacked_bar_chart(combined_results)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
             
             with col2:
                 # Display component breakdown

@@ -307,6 +307,27 @@ NewsXpose stands out from other fake news detection solutions due to its:
 
 
 
+## Repository setup and deployment
+
+The deployable Streamlit application lives at the repository root. The reusable
+model-training source copied from the original Mini Project is under `training/`.
+Large datasets are intentionally excluded; `data/SOURCES.txt` contains their
+download links and expected local paths. The project presentation and research
+papers are preserved under `docs/` and are excluded from the deployed container.
+
+For local development:
+
+1. Install the packages in `requirements.txt`.
+2. Copy `.env.example` to `.env` and set a newly generated `GEMINI_API_KEY`.
+3. Export the variables from `.env`, then run `streamlit run app.py`.
+
+For Render, create a Blueprint from this repository. Render reads `render.yaml`
+and prompts for `GEMINI_API_KEY` because it is declared with `sync: false`.
+The secret value is stored in Render and is never committed to GitHub.
+
+Important: if an API key has ever appeared in Git history, revoke it before
+creating the Render service and use a newly generated key.
+
 ## 👥 Contributors
 
 This project was developed as a College Mini Project for Educational purposes.

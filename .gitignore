@@ -88,6 +88,8 @@ celerybeat-schedule
 
 # Environments
 .env
+.env.*
+!.env.example
 .venv
 env/
 venv/
@@ -132,6 +134,16 @@ Desktop.ini
 *.h5
 *.pkl
 *.model
+
+# Local secrets
+.streamlit/secrets.toml
+
+# Datasets stay outside Git. Keep only the source-link manifest.
+data/**
+!data/SOURCES.txt
+WELFake_Dataset.csv
+training/**/real/
+training/**/fake/
 
 # Logs
 logs/
